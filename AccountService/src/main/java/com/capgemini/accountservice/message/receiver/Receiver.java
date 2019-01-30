@@ -1,8 +1,5 @@
 package com.capgemini.accountservice.message.receiver;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageListener;
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.listener.exception.ListenerExecutionFailedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +14,7 @@ import com.capgemini.transactionservice.app.entity.Transaction;
  *
  */
 @Component
-@EnableRabbit
-public class Receiver implements MessageListener{
+public class Receiver {
 
 	@Autowired
 	private AccountResource accountResource;
@@ -32,10 +28,6 @@ public class Receiver implements MessageListener{
 	public void updateCurrentBalance(Transaction transaction) throws ListenerExecutionFailedException{
 		//System.out.println(transaction.toString());
 		accountResource.updateBalance(transaction.getAccountNumber(), transaction.getCurrentBalance());
-	}
-
-	@Override
-	public void onMessage(Message message) {
 	}
 	
 }
